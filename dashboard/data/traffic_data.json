@@ -1,0 +1,563 @@
+{
+  "meta": {
+    "duration_minutes": 21,
+    "total_vehicles": 1359,
+    "overall_congestion_index": 53.6,
+    "overall_congestion_level": {
+      "level": "heavy",
+      "label_en": "Heavy",
+      "label_zh": "壅塞"
+    },
+    "peak_minute": 0,
+    "peak_real_time": "07:30",
+    "peak_vehicles": 93
+  },
+  "total_by_category": {
+    "car_suv": 1100,
+    "motorcycle": 67,
+    "truck": 105,
+    "bus": 62,
+    "pedestrian": 25
+  },
+  "counting_lines": [
+    {
+      "id": "L1",
+      "label_en": "North Inbound",
+      "label_zh": "北向進入",
+      "direction": "north",
+      "x1": 192,
+      "y1": 216,
+      "x2": 960,
+      "y2": 216,
+      "total_vehicles": 318,
+      "counts_by_category": {
+        "car_suv": 293,
+        "motorcycle": 0,
+        "truck": 14,
+        "bus": 11,
+        "pedestrian": 0
+      },
+      "weighted_volume": 350.0,
+      "congestion_index": 12.4,
+      "congestion_level": {
+        "level": "free_flow",
+        "label_en": "Free Flow",
+        "label_zh": "順暢"
+      }
+    },
+    {
+      "id": "L2",
+      "label_en": "South Inbound",
+      "label_zh": "南向進入",
+      "direction": "south",
+      "x1": 320,
+      "y1": 518,
+      "x2": 1152,
+      "y2": 518,
+      "total_vehicles": 165,
+      "counts_by_category": {
+        "car_suv": 124,
+        "motorcycle": 2,
+        "truck": 36,
+        "bus": 1,
+        "pedestrian": 2
+      },
+      "weighted_volume": 216.8,
+      "congestion_index": 7.7,
+      "congestion_level": {
+        "level": "free_flow",
+        "label_en": "Free Flow",
+        "label_zh": "順暢"
+      }
+    },
+    {
+      "id": "L3",
+      "label_en": "West Inbound",
+      "label_zh": "西向進入",
+      "direction": "west",
+      "x1": 256,
+      "y1": 144,
+      "x2": 256,
+      "y2": 576,
+      "total_vehicles": 501,
+      "counts_by_category": {
+        "car_suv": 387,
+        "motorcycle": 53,
+        "truck": 32,
+        "bus": 24,
+        "pedestrian": 5
+      },
+      "weighted_volume": 531.4,
+      "congestion_index": 18.9,
+      "congestion_level": {
+        "level": "free_flow",
+        "label_en": "Free Flow",
+        "label_zh": "順暢"
+      }
+    },
+    {
+      "id": "L4",
+      "label_en": "East Inbound",
+      "label_zh": "東向進入",
+      "direction": "east",
+      "x1": 1024,
+      "y1": 144,
+      "x2": 1024,
+      "y2": 576,
+      "total_vehicles": 375,
+      "counts_by_category": {
+        "car_suv": 296,
+        "motorcycle": 12,
+        "truck": 23,
+        "bus": 26,
+        "pedestrian": 18
+      },
+      "weighted_volume": 410.9,
+      "congestion_index": 14.6,
+      "congestion_level": {
+        "level": "free_flow",
+        "label_en": "Free Flow",
+        "label_zh": "順暢"
+      }
+    }
+  ],
+  "congestion_timeline": [
+    {
+      "minute": 0,
+      "real_time": "07:30",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 100.0,
+      "congestion_level": {
+        "level": "severe",
+        "label_en": "Severe",
+        "label_zh": "嚴重壅塞"
+      },
+      "counts": {
+        "car_suv": 62,
+        "motorcycle": 2,
+        "truck": 27,
+        "bus": 2,
+        "pedestrian": 0
+      },
+      "weighted_volume": 134.1
+    },
+    {
+      "minute": 1,
+      "real_time": "07:31",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 58.2,
+      "congestion_level": {
+        "level": "heavy",
+        "label_en": "Heavy",
+        "label_zh": "壅塞"
+      },
+      "counts": {
+        "car_suv": 44,
+        "motorcycle": 10,
+        "truck": 10,
+        "bus": 3,
+        "pedestrian": 0
+      },
+      "weighted_volume": 78.0
+    },
+    {
+      "minute": 2,
+      "real_time": "07:32",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 67.1,
+      "congestion_level": {
+        "level": "heavy",
+        "label_en": "Heavy",
+        "label_zh": "壅塞"
+      },
+      "counts": {
+        "car_suv": 82,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 4,
+        "pedestrian": 0
+      },
+      "weighted_volume": 90.0
+    },
+    {
+      "minute": 3,
+      "real_time": "07:33",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 58.2,
+      "congestion_level": {
+        "level": "heavy",
+        "label_en": "Heavy",
+        "label_zh": "壅塞"
+      },
+      "counts": {
+        "car_suv": 63,
+        "motorcycle": 2,
+        "truck": 5,
+        "bus": 1,
+        "pedestrian": 0
+      },
+      "weighted_volume": 78.1
+    },
+    {
+      "minute": 4,
+      "real_time": "07:34",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 67.9,
+      "congestion_level": {
+        "level": "heavy",
+        "label_en": "Heavy",
+        "label_zh": "壅塞"
+      },
+      "counts": {
+        "car_suv": 55,
+        "motorcycle": 0,
+        "truck": 12,
+        "bus": 3,
+        "pedestrian": 0
+      },
+      "weighted_volume": 91.0
+    },
+    {
+      "minute": 5,
+      "real_time": "07:35",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 56.5,
+      "congestion_level": {
+        "level": "heavy",
+        "label_en": "Heavy",
+        "label_zh": "壅塞"
+      },
+      "counts": {
+        "car_suv": 55,
+        "motorcycle": 10,
+        "truck": 6,
+        "bus": 1,
+        "pedestrian": 8
+      },
+      "weighted_volume": 75.8
+    },
+    {
+      "minute": 6,
+      "real_time": "07:36",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 40.7,
+      "congestion_level": {
+        "level": "moderate",
+        "label_en": "Moderate",
+        "label_zh": "稍塞"
+      },
+      "counts": {
+        "car_suv": 44,
+        "motorcycle": 3,
+        "truck": 3,
+        "bus": 1,
+        "pedestrian": 2
+      },
+      "weighted_volume": 54.6
+    },
+    {
+      "minute": 7,
+      "real_time": "07:37",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 52.6,
+      "congestion_level": {
+        "level": "heavy",
+        "label_en": "Heavy",
+        "label_zh": "壅塞"
+      },
+      "counts": {
+        "car_suv": 66,
+        "motorcycle": 0,
+        "truck": 1,
+        "bus": 1,
+        "pedestrian": 0
+      },
+      "weighted_volume": 70.5
+    },
+    {
+      "minute": 8,
+      "real_time": "07:38",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 59.4,
+      "congestion_level": {
+        "level": "heavy",
+        "label_en": "Heavy",
+        "label_zh": "壅塞"
+      },
+      "counts": {
+        "car_suv": 54,
+        "motorcycle": 5,
+        "truck": 4,
+        "bus": 7,
+        "pedestrian": 2
+      },
+      "weighted_volume": 79.7
+    },
+    {
+      "minute": 9,
+      "real_time": "07:39",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 35.4,
+      "congestion_level": {
+        "level": "moderate",
+        "label_en": "Moderate",
+        "label_zh": "稍塞"
+      },
+      "counts": {
+        "car_suv": 24,
+        "motorcycle": 3,
+        "truck": 9,
+        "bus": 0,
+        "pedestrian": 1
+      },
+      "weighted_volume": 47.5
+    },
+    {
+      "minute": 10,
+      "real_time": "07:40",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 49.9,
+      "congestion_level": {
+        "level": "moderate",
+        "label_en": "Moderate",
+        "label_zh": "稍塞"
+      },
+      "counts": {
+        "car_suv": 52,
+        "motorcycle": 3,
+        "truck": 4,
+        "bus": 2,
+        "pedestrian": 0
+      },
+      "weighted_volume": 66.9
+    },
+    {
+      "minute": 11,
+      "real_time": "07:41",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 60.0,
+      "congestion_level": {
+        "level": "heavy",
+        "label_en": "Heavy",
+        "label_zh": "壅塞"
+      },
+      "counts": {
+        "car_suv": 65,
+        "motorcycle": 2,
+        "truck": 5,
+        "bus": 1,
+        "pedestrian": 3
+      },
+      "weighted_volume": 80.4
+    },
+    {
+      "minute": 12,
+      "real_time": "07:42",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 47.0,
+      "congestion_level": {
+        "level": "moderate",
+        "label_en": "Moderate",
+        "label_zh": "稍塞"
+      },
+      "counts": {
+        "car_suv": 46,
+        "motorcycle": 0,
+        "truck": 2,
+        "bus": 6,
+        "pedestrian": 0
+      },
+      "weighted_volume": 63.0
+    },
+    {
+      "minute": 13,
+      "real_time": "07:43",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 51.2,
+      "congestion_level": {
+        "level": "heavy",
+        "label_en": "Heavy",
+        "label_zh": "壅塞"
+      },
+      "counts": {
+        "car_suv": 37,
+        "motorcycle": 2,
+        "truck": 6,
+        "bus": 8,
+        "pedestrian": 0
+      },
+      "weighted_volume": 68.6
+    },
+    {
+      "minute": 14,
+      "real_time": "07:44",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 45.7,
+      "congestion_level": {
+        "level": "moderate",
+        "label_en": "Moderate",
+        "label_zh": "稍塞"
+      },
+      "counts": {
+        "car_suv": 47,
+        "motorcycle": 1,
+        "truck": 4,
+        "bus": 2,
+        "pedestrian": 0
+      },
+      "weighted_volume": 61.3
+    },
+    {
+      "minute": 15,
+      "real_time": "07:45",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 81.2,
+      "congestion_level": {
+        "level": "severe",
+        "label_en": "Severe",
+        "label_zh": "嚴重壅塞"
+      },
+      "counts": {
+        "car_suv": 80,
+        "motorcycle": 11,
+        "truck": 3,
+        "bus": 9,
+        "pedestrian": 1
+      },
+      "weighted_volume": 108.9
+    },
+    {
+      "minute": 16,
+      "real_time": "07:46",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 63.6,
+      "congestion_level": {
+        "level": "heavy",
+        "label_en": "Heavy",
+        "label_zh": "壅塞"
+      },
+      "counts": {
+        "car_suv": 67,
+        "motorcycle": 4,
+        "truck": 2,
+        "bus": 6,
+        "pedestrian": 1
+      },
+      "weighted_volume": 85.3
+    },
+    {
+      "minute": 17,
+      "real_time": "07:47",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 29.8,
+      "congestion_level": {
+        "level": "moderate",
+        "label_en": "Moderate",
+        "label_zh": "稍塞"
+      },
+      "counts": {
+        "car_suv": 40,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "weighted_volume": 40.0
+    },
+    {
+      "minute": 18,
+      "real_time": "07:48",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 64.2,
+      "congestion_level": {
+        "level": "heavy",
+        "label_en": "Heavy",
+        "label_zh": "壅塞"
+      },
+      "counts": {
+        "car_suv": 70,
+        "motorcycle": 9,
+        "truck": 2,
+        "bus": 4,
+        "pedestrian": 4
+      },
+      "weighted_volume": 86.1
+    },
+    {
+      "minute": 19,
+      "real_time": "07:49",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 36.8,
+      "congestion_level": {
+        "level": "moderate",
+        "label_en": "Moderate",
+        "label_zh": "稍塞"
+      },
+      "counts": {
+        "car_suv": 47,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 1,
+        "pedestrian": 3
+      },
+      "weighted_volume": 49.3
+    },
+    {
+      "minute": 20,
+      "real_time": "07:50",
+      "period_en": "Morning Peak",
+      "period_zh": "早峰",
+      "congestion_index": 0.0,
+      "congestion_level": {
+        "level": "free_flow",
+        "label_en": "Free Flow",
+        "label_zh": "順暢"
+      },
+      "counts": {
+        "car_suv": 0,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "weighted_volume": 0.0
+    }
+  ],
+  "recommendations": [
+    {
+      "id": "R5",
+      "priority": "medium",
+      "icon": "📊",
+      "title_en": "Adaptive Signal for Busiest Approach (L3)",
+      "title_zh": "最繁忙方向（L3）適應性號誌控制",
+      "detail_en": "Line L3 recorded the highest crossing count (501 vehicles). Deploying an adaptive traffic control system (ATCS) on this approach can dynamically balance green time allocation.",
+      "detail_zh": "L3 方向記錄最高通過車輛數（501 輛），建議於此方向部署適應性號誌控制系統（ATCS），動態分配綠燈時間。"
+    }
+  ],
+  "video_info": {
+    "width": 1280,
+    "height": 720,
+    "fps": 23.75,
+    "total_frames": 28501
+  }
+}

@@ -1,0 +1,869 @@
+{
+  "video_info": {
+    "width": 1280,
+    "height": 720,
+    "fps": 23.75,
+    "total_frames": 28501
+  },
+  "counting_lines": [
+    {
+      "id": "L1",
+      "label_en": "North Inbound",
+      "label_zh": "北向進入",
+      "direction": "north",
+      "x1": 192,
+      "y1": 216,
+      "x2": 960,
+      "y2": 216
+    },
+    {
+      "id": "L2",
+      "label_en": "South Inbound",
+      "label_zh": "南向進入",
+      "direction": "south",
+      "x1": 320,
+      "y1": 518,
+      "x2": 1152,
+      "y2": 518
+    },
+    {
+      "id": "L3",
+      "label_en": "West Inbound",
+      "label_zh": "西向進入",
+      "direction": "west",
+      "x1": 256,
+      "y1": 144,
+      "x2": 256,
+      "y2": 576
+    },
+    {
+      "id": "L4",
+      "label_en": "East Inbound",
+      "label_zh": "東向進入",
+      "direction": "east",
+      "x1": 1024,
+      "y1": 144,
+      "x2": 1024,
+      "y2": 576
+    }
+  ],
+  "minute_counts": {
+    "0": {
+      "L1": {
+        "car_suv": 14,
+        "motorcycle": 0,
+        "truck": 1,
+        "bus": 1,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 28,
+        "motorcycle": 0,
+        "truck": 22,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 13,
+        "motorcycle": 2,
+        "truck": 4,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L4": {
+        "car_suv": 7,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 1,
+        "pedestrian": 0
+      }
+    },
+    "1": {
+      "L1": {
+        "car_suv": 3,
+        "motorcycle": 0,
+        "truck": 3,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 11,
+        "motorcycle": 0,
+        "truck": 3,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 23,
+        "motorcycle": 5,
+        "truck": 1,
+        "bus": 1,
+        "pedestrian": 0
+      },
+      "L4": {
+        "car_suv": 7,
+        "motorcycle": 5,
+        "truck": 3,
+        "bus": 2,
+        "pedestrian": 0
+      }
+    },
+    "2": {
+      "L1": {
+        "car_suv": 35,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 1,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 2,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 22,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 2,
+        "pedestrian": 0
+      },
+      "L4": {
+        "car_suv": 23,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 1,
+        "pedestrian": 0
+      }
+    },
+    "3": {
+      "L1": {
+        "car_suv": 23,
+        "motorcycle": 0,
+        "truck": 4,
+        "bus": 1,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 5,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 25,
+        "motorcycle": 2,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L4": {
+        "car_suv": 10,
+        "motorcycle": 0,
+        "truck": 1,
+        "bus": 0,
+        "pedestrian": 0
+      }
+    },
+    "4": {
+      "L1": {
+        "car_suv": 15,
+        "motorcycle": 0,
+        "truck": 1,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 9,
+        "motorcycle": 0,
+        "truck": 3,
+        "bus": 1,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 19,
+        "motorcycle": 0,
+        "truck": 4,
+        "bus": 2,
+        "pedestrian": 0
+      },
+      "L4": {
+        "car_suv": 12,
+        "motorcycle": 0,
+        "truck": 4,
+        "bus": 0,
+        "pedestrian": 0
+      }
+    },
+    "5": {
+      "L1": {
+        "car_suv": 2,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 1,
+        "motorcycle": 1,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 2
+      },
+      "L3": {
+        "car_suv": 25,
+        "motorcycle": 8,
+        "truck": 3,
+        "bus": 1,
+        "pedestrian": 1
+      },
+      "L4": {
+        "car_suv": 27,
+        "motorcycle": 1,
+        "truck": 3,
+        "bus": 0,
+        "pedestrian": 5
+      }
+    },
+    "6": {
+      "L1": {
+        "car_suv": 16,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 5,
+        "motorcycle": 0,
+        "truck": 1,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 12,
+        "motorcycle": 3,
+        "truck": 1,
+        "bus": 1,
+        "pedestrian": 0
+      },
+      "L4": {
+        "car_suv": 11,
+        "motorcycle": 0,
+        "truck": 1,
+        "bus": 0,
+        "pedestrian": 2
+      }
+    },
+    "7": {
+      "L1": {
+        "car_suv": 22,
+        "motorcycle": 0,
+        "truck": 1,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 6,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 24,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L4": {
+        "car_suv": 14,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 1,
+        "pedestrian": 0
+      }
+    },
+    "8": {
+      "L1": {
+        "car_suv": 10,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 5,
+        "motorcycle": 0,
+        "truck": 1,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 22,
+        "motorcycle": 3,
+        "truck": 2,
+        "bus": 3,
+        "pedestrian": 1
+      },
+      "L4": {
+        "car_suv": 17,
+        "motorcycle": 2,
+        "truck": 1,
+        "bus": 4,
+        "pedestrian": 1
+      }
+    },
+    "9": {
+      "L1": {
+        "car_suv": 4,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 2,
+        "motorcycle": 0,
+        "truck": 2,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 9,
+        "motorcycle": 2,
+        "truck": 4,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L4": {
+        "car_suv": 9,
+        "motorcycle": 1,
+        "truck": 3,
+        "bus": 0,
+        "pedestrian": 1
+      }
+    },
+    "10": {
+      "L1": {
+        "car_suv": 24,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 1,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 1,
+        "motorcycle": 0,
+        "truck": 2,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 20,
+        "motorcycle": 3,
+        "truck": 1,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L4": {
+        "car_suv": 7,
+        "motorcycle": 0,
+        "truck": 1,
+        "bus": 1,
+        "pedestrian": 0
+      }
+    },
+    "11": {
+      "L1": {
+        "car_suv": 13,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 13,
+        "motorcycle": 1,
+        "truck": 1,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 19,
+        "motorcycle": 1,
+        "truck": 3,
+        "bus": 1,
+        "pedestrian": 0
+      },
+      "L4": {
+        "car_suv": 20,
+        "motorcycle": 0,
+        "truck": 1,
+        "bus": 0,
+        "pedestrian": 3
+      }
+    },
+    "12": {
+      "L1": {
+        "car_suv": 3,
+        "motorcycle": 0,
+        "truck": 1,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 1,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 19,
+        "motorcycle": 0,
+        "truck": 1,
+        "bus": 3,
+        "pedestrian": 0
+      },
+      "L4": {
+        "car_suv": 23,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 3,
+        "pedestrian": 0
+      }
+    },
+    "13": {
+      "L1": {
+        "car_suv": 11,
+        "motorcycle": 0,
+        "truck": 1,
+        "bus": 6,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 3,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 16,
+        "motorcycle": 2,
+        "truck": 4,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L4": {
+        "car_suv": 7,
+        "motorcycle": 0,
+        "truck": 1,
+        "bus": 2,
+        "pedestrian": 0
+      }
+    },
+    "14": {
+      "L1": {
+        "car_suv": 12,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 1,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 10,
+        "motorcycle": 0,
+        "truck": 1,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 15,
+        "motorcycle": 0,
+        "truck": 2,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L4": {
+        "car_suv": 10,
+        "motorcycle": 1,
+        "truck": 1,
+        "bus": 1,
+        "pedestrian": 0
+      }
+    },
+    "15": {
+      "L1": {
+        "car_suv": 21,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 0,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 31,
+        "motorcycle": 10,
+        "truck": 1,
+        "bus": 4,
+        "pedestrian": 0
+      },
+      "L4": {
+        "car_suv": 28,
+        "motorcycle": 1,
+        "truck": 2,
+        "bus": 5,
+        "pedestrian": 1
+      }
+    },
+    "16": {
+      "L1": {
+        "car_suv": 39,
+        "motorcycle": 0,
+        "truck": 2,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 6,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 12,
+        "motorcycle": 4,
+        "truck": 0,
+        "bus": 3,
+        "pedestrian": 1
+      },
+      "L4": {
+        "car_suv": 10,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 3,
+        "pedestrian": 0
+      }
+    },
+    "17": {
+      "L1": {
+        "car_suv": 13,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 4,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 13,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L4": {
+        "car_suv": 10,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      }
+    },
+    "18": {
+      "L1": {
+        "car_suv": 5,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 7,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 32,
+        "motorcycle": 8,
+        "truck": 1,
+        "bus": 2,
+        "pedestrian": 2
+      },
+      "L4": {
+        "car_suv": 26,
+        "motorcycle": 1,
+        "truck": 1,
+        "bus": 2,
+        "pedestrian": 2
+      }
+    },
+    "19": {
+      "L1": {
+        "car_suv": 8,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 5,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 16,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 1,
+        "pedestrian": 0
+      },
+      "L4": {
+        "car_suv": 18,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 3
+      }
+    },
+    "20": {
+      "L1": {
+        "car_suv": 0,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L2": {
+        "car_suv": 0,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L3": {
+        "car_suv": 0,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      },
+      "L4": {
+        "car_suv": 0,
+        "motorcycle": 0,
+        "truck": 0,
+        "bus": 0,
+        "pedestrian": 0
+      }
+    }
+  },
+  "line_totals": {
+    "L1": {
+      "car_suv": 293,
+      "motorcycle": 0,
+      "truck": 14,
+      "bus": 11,
+      "pedestrian": 0
+    },
+    "L2": {
+      "car_suv": 124,
+      "motorcycle": 2,
+      "truck": 36,
+      "bus": 1,
+      "pedestrian": 2
+    },
+    "L3": {
+      "car_suv": 387,
+      "motorcycle": 53,
+      "truck": 32,
+      "bus": 24,
+      "pedestrian": 5
+    },
+    "L4": {
+      "car_suv": 296,
+      "motorcycle": 12,
+      "truck": 23,
+      "bus": 26,
+      "pedestrian": 18
+    }
+  },
+  "total_by_category": {
+    "car_suv": 1100,
+    "motorcycle": 67,
+    "truck": 105,
+    "bus": 62,
+    "pedestrian": 25
+  },
+  "timeline": {
+    "0": {
+      "car_suv": 62,
+      "motorcycle": 2,
+      "truck": 27,
+      "bus": 2,
+      "pedestrian": 0
+    },
+    "1": {
+      "car_suv": 44,
+      "motorcycle": 10,
+      "truck": 10,
+      "bus": 3,
+      "pedestrian": 0
+    },
+    "2": {
+      "car_suv": 82,
+      "motorcycle": 0,
+      "truck": 0,
+      "bus": 4,
+      "pedestrian": 0
+    },
+    "3": {
+      "car_suv": 63,
+      "motorcycle": 2,
+      "truck": 5,
+      "bus": 1,
+      "pedestrian": 0
+    },
+    "4": {
+      "car_suv": 55,
+      "motorcycle": 0,
+      "truck": 12,
+      "bus": 3,
+      "pedestrian": 0
+    },
+    "5": {
+      "car_suv": 55,
+      "motorcycle": 10,
+      "truck": 6,
+      "bus": 1,
+      "pedestrian": 8
+    },
+    "6": {
+      "car_suv": 44,
+      "motorcycle": 3,
+      "truck": 3,
+      "bus": 1,
+      "pedestrian": 2
+    },
+    "7": {
+      "car_suv": 66,
+      "motorcycle": 0,
+      "truck": 1,
+      "bus": 1,
+      "pedestrian": 0
+    },
+    "8": {
+      "car_suv": 54,
+      "motorcycle": 5,
+      "truck": 4,
+      "bus": 7,
+      "pedestrian": 2
+    },
+    "9": {
+      "car_suv": 24,
+      "motorcycle": 3,
+      "truck": 9,
+      "bus": 0,
+      "pedestrian": 1
+    },
+    "10": {
+      "car_suv": 52,
+      "motorcycle": 3,
+      "truck": 4,
+      "bus": 2,
+      "pedestrian": 0
+    },
+    "11": {
+      "car_suv": 65,
+      "motorcycle": 2,
+      "truck": 5,
+      "bus": 1,
+      "pedestrian": 3
+    },
+    "12": {
+      "car_suv": 46,
+      "motorcycle": 0,
+      "truck": 2,
+      "bus": 6,
+      "pedestrian": 0
+    },
+    "13": {
+      "car_suv": 37,
+      "motorcycle": 2,
+      "truck": 6,
+      "bus": 8,
+      "pedestrian": 0
+    },
+    "14": {
+      "car_suv": 47,
+      "motorcycle": 1,
+      "truck": 4,
+      "bus": 2,
+      "pedestrian": 0
+    },
+    "15": {
+      "car_suv": 80,
+      "motorcycle": 11,
+      "truck": 3,
+      "bus": 9,
+      "pedestrian": 1
+    },
+    "16": {
+      "car_suv": 67,
+      "motorcycle": 4,
+      "truck": 2,
+      "bus": 6,
+      "pedestrian": 1
+    },
+    "17": {
+      "car_suv": 40,
+      "motorcycle": 0,
+      "truck": 0,
+      "bus": 0,
+      "pedestrian": 0
+    },
+    "18": {
+      "car_suv": 70,
+      "motorcycle": 9,
+      "truck": 2,
+      "bus": 4,
+      "pedestrian": 4
+    },
+    "19": {
+      "car_suv": 47,
+      "motorcycle": 0,
+      "truck": 0,
+      "bus": 1,
+      "pedestrian": 3
+    },
+    "20": {
+      "car_suv": 0,
+      "motorcycle": 0,
+      "truck": 0,
+      "bus": 0,
+      "pedestrian": 0
+    }
+  },
+  "duration_minutes": 21
+}
