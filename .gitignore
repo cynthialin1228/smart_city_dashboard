@@ -1,5 +1,8 @@
-*.mp4
+video_20min.mp4
 *.png
 .vscode/*
 *.pt
 *.pyc
+.DS_Store
+raw_video.mp4
+traffic_video.mp4
