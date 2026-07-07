@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+/* Cyberpunk dark base */
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #050a14;
+  color: #e2e8f0;
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  overflow: hidden;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Neon glow utilities */
+.glow-cyan  { text-shadow: 0 0 8px #00f5ff, 0 0 20px #00f5ff44; }
+.glow-green { text-shadow: 0 0 8px #39ff14, 0 0 20px #39ff1444; }
+.glow-amber { text-shadow: 0 0 8px #ffb300, 0 0 20px #ffb30044; }
+
+/* Canvas cursor styles */
+.cursor-crosshair { cursor: crosshair; }

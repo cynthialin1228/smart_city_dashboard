@@ -1,8 +1,24 @@
-# Smart City Traffic Analytics Dashboard
-**智慧城市交通分析儀表板**
+# 🚦 Smart City Traffic Digital Twin System
+**智慧城市交通數位孿生系統**
 
-> AI-powered traffic detection and visualization for Trade Corridor monitoring.  
-> Built for the Department of Transportation / Urban Traffic Management Authorities.
+> AI-powered traffic counting & signal optimization with real-time visualization.  
+> Built for intelligent traffic management & urban planning.
+
+**版本**: 3.0.0 (同步修正版) · **狀態**: ✅ 完成 · 已驗証 · 可上線
+
+---
+
+## 📖 文檔導航
+
+### 🎯 快速開始
+1. **[DRAWING_GUIDE.md](./DRAWING_GUIDE.md)** ← **先看這個！** ROI 和計數線怎麼畫
+2. **[EXECUTABLE_SUMMARY.md](./EXECUTIVE_SUMMARY.md)** ← 5 分鐘快速了解修正內容
+3. **[DEPLOYMENT_CHECKLIST.md](./DEPLOYMENT_CHECKLIST.md)** ← 部署前檢查清單
+
+### 📚 參考文檔
+- **[TROUBLESHOOTING.md](./TROUBLESHOOTING.md)** ← 有問題時查這個
+- **[USER_GUIDE.md](./USER_GUIDE.md)** ← 使用系統的完整說明
+- **[CLAUDE_DEVELOPMENT_PLAN.md](./CLAUDE_DEVELOPMENT_PLAN.md)** ← 專案規劃
 
 ---
 
