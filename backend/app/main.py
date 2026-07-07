@@ -4,15 +4,17 @@ main.py  –  FastAPI backend · Smart City Digital Twin Traffic Control Room
 
 Architecture
 ────────────
-  traffic_base.json  →  20-minute trajectory database  (28 k frames @ 23.75 fps)
-                         Generated once by gen_traffic_base.py and loaded at
-                         startup.  Contains normalised (x,y) ∈ [0,1]² paths.
+  traffic_base.json  →  20-minute real trajectory database built from
+                         genuine YOLO+ByteTrack counts in tracking_raw.json.
+                         Generated ONCE by running:
+                             cd backend
+                             python data/build_real_trajectory_db.py
+                         Contains normalised (x,y) ∈ [0,1]² paths for
+                         ~1140 seconds of real traffic data.
 
   POST /api/config   →  User draws lines A/B/C/D in the browser.
-                         Backend runs SpatialEngine over ALL 28 k frames,
-                         pre-computes every crossing event and caches results.
-                         This is the ONLY place generate_from_config is called
-                         (if traffic_base.json is missing or stale).
+                         Backend runs SpatialEngine over ALL real frames,
+                         pre-computes every crossing event, caches results.
 
   WS /ws/stream      →  Client sends { "type":"seek", "t": 345.6 }.
                          Backend looks up the nearest pre-computed frame and
@@ -54,8 +56,17 @@ REST endpoints
 
 Startup
 ───────
-  cd backend
+  # Build real trajectory database first (only needed once):
+  cd backend && python data/build_real_trajectory_db.py
+  # Then start the API:
   uvicorn app.main:app --reload --port 8000
+
+IMPORTANT
+─────────
+  Synthetic data generation has been intentionally removed.
+  If traffic_base.json is missing, the server will start but
+  POST /api/config will return a 503 with instructions to run
+  build_real_trajectory_db.py.
 """
 
 from __future__ import annotations
@@ -68,6 +79,7 @@ from typing import Optional
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
 import sys as _sys
@@ -76,23 +88,15 @@ _sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from app.spatial_engine import SpatialEngine, PCU_WEIGHTS
 from app.traffic_rules   import evaluate_rules, RuleResult
 
-# Trajectory generator (used only if traffic_base.json needs rebuilding)
-import importlib.util as _ilu
-_spec = _ilu.spec_from_file_location(
-    "gen_traffic_base",
-    Path(__file__).resolve().parent.parent / "data" / "gen_traffic_base.py",
-)
-_gen_mod = _ilu.module_from_spec(_spec)
-_spec.loader.exec_module(_gen_mod)
-_generate_from_config = _gen_mod.generate_from_config
-
 # ─────────────────────────────────────────────────────────────────────────────
-app = FastAPI(title="Smart City Traffic API", version="4.0.0")
+app = FastAPI(title="Smart City Traffic API", version="5.0.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"],
                    allow_methods=["*"], allow_headers=["*"])
 
-DATA_PATH   = Path(__file__).parent.parent / "data" / "traffic_base.json"
-WINDOW_SEC  = 30.0    # PCU sliding window
+# Real trajectory database — built from tracking_raw.json by
+# running: python data/build_real_trajectory_db.py
+DATA_PATH  = Path(__file__).parent.parent / "data" / "traffic_base.json"
+WINDOW_SEC = 30.0    # PCU sliding window (seconds)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -102,36 +106,45 @@ WINDOW_SEC  = 30.0    # PCU sliding window
 class _State:
     def __init__(self):
         self.config:         Optional[dict]        = None
-        # raw trajectory frames loaded from JSON  [{"t":…,"tracks":[…]}, …]
+        # real trajectory frames loaded from traffic_base.json
+        # format: [{"t": float, "tracks": [{"track_id", "class", "x", "y"}]}, …]
         self.trajectory_db:  list[dict]            = []
-        # pre-computed results keyed by frame timestamp
+        # meta from traffic_base.json
+        self.db_meta:        dict                  = {}
+        # pre-computed SpatialEngine results keyed by frame timestamp
         self.frames:         dict[float, dict]     = {}
         self._frame_keys:    list[float]           = []
         # per-second sparkline timeline
         self.timeline:       list[dict]            = []
-        # video duration from the trajectory database
+        # video duration from the trajectory database (real data: ~1140 s)
         self.duration_s:     float                 = 0.0
+
 
 state = _State()
 
 
 @app.on_event("startup")
 async def _startup():
-    """Load trajectory database from disk on startup."""
+    """Load real trajectory database from disk on startup."""
     if DATA_PATH.exists():
         t0 = time.time()
         with open(DATA_PATH) as f:
             db = json.load(f)
         state.trajectory_db = db.get("frames", [])
-        meta = db.get("meta", {})
-        state.duration_s = float(meta.get("duration_s", 0))
+        state.db_meta       = db.get("meta", {})
+        state.duration_s    = float(state.db_meta.get("duration_s", 0))
         elapsed = time.time() - t0
-        print(f"[startup] Loaded {len(state.trajectory_db)} frames "
-              f"({state.duration_s:.0f}s) from {DATA_PATH.name} "
+        src = state.db_meta.get("source", DATA_PATH.name)
+        print(f"[startup] Loaded {len(state.trajectory_db)} real frames "
+              f"({state.duration_s:.0f}s) from '{src}' "
               f"in {elapsed:.2f}s")
     else:
-        print(f"[startup] {DATA_PATH} not found — "
-              "will generate on first POST /api/config")
+        print(
+            f"[startup] WARNING: {DATA_PATH} not found.\n"
+            "  Run the following to build it from real tracking data:\n"
+            "    cd backend\n"
+            "    python data/build_real_trajectory_db.py"
+        )
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -149,11 +162,13 @@ class ConfigPayload(BaseModel):
 
 def _precompute(config: ConfigPayload, traj_frames: list[dict]) -> None:
     """
-    Run SpatialEngine over every trajectory frame and cache results in
-    state.frames.  Also builds the 1-second sparkline timeline.
+    Run SpatialEngine over every real trajectory frame and cache results.
 
-    This is O(n_frames × n_vehicles_per_frame) and runs once per config.
-    At 23.75 fps × 1200 s = 28 500 frames it typically finishes in 1–2 s.
+    Cross-multiplies all real vehicle positions against the user's drawn
+    lines to detect every crossing event in the 1140-second dataset.
+
+    Complexity: O(n_frames × n_vehicles_per_frame) — runs once per config.
+    At 23.75 fps × 1140 s ≈ 27 000 frames this takes ~1–2 s.
     """
     t0 = time.time()
 
@@ -201,7 +216,7 @@ def _precompute(config: ConfigPayload, traj_frames: list[dict]) -> None:
     total_pcu = sum(PCU_WEIGHTS.get(ev["class"], 1.0)
                     for fd in results.values() for ev in fd["events"])
     elapsed = time.time() - t0
-    print(f"[precompute] {len(results)} frames | "
+    print(f"[precompute] {len(results)} real frames | "
           f"{total_ev} crossing events | {total_pcu:.1f} total PCU | "
           f"{state.duration_s:.0f}s timeline | {elapsed:.2f}s")
 
@@ -218,7 +233,7 @@ def _nearest_frame(t_req: float) -> dict:
     if t_req >= keys[-1]:
         return state.frames[keys[-1]]
 
-    idx = bisect.bisect_left(keys, t_req)
+    idx    = bisect.bisect_left(keys, t_req)
     before = keys[idx - 1]
     after  = keys[idx]
     key    = before if (t_req - before) <= (after - t_req) else after
@@ -232,23 +247,31 @@ def _nearest_frame(t_req: float) -> dict:
 @app.post("/api/config")
 async def set_config(payload: ConfigPayload):
     """
-    1. Use existing trajectory_db (or regenerate if empty).
-    2. Pre-compute all crossing events against the user's lines.
-    3. Return summary stats.
-    """
-    state.config = payload.model_dump()
+    Accept the user's ROI + counting lines, then cross-multiply them
+    against the REAL trajectory database to pre-compute all crossing
+    events.  Returns a summary of the pre-computation.
 
-    # If trajectory database is empty, generate it now
+    Returns 503 if the real trajectory database has not been built yet.
+    Run:  cd backend && python data/build_real_trajectory_db.py
+    """
+    # Guard: refuse to run if real data is not loaded
     if not state.trajectory_db:
-        print("[config] No trajectory database — generating 1200s data …")
-        state.trajectory_db = _generate_from_config(
-            roi       = payload.roi,
-            lines     = payload.lines,
-            duration_s= 1200.0,
-            fps       = 23.75,
-            out_path  = DATA_PATH,
+        return JSONResponse(
+            status_code=503,
+            content={
+                "ok":    False,
+                "error": "Real trajectory database not loaded.",
+                "fix":   (
+                    "Run the following command to build it from real "
+                    "YOLO+ByteTrack data:\n"
+                    "  cd backend\n"
+                    "  python data/build_real_trajectory_db.py\n"
+                    "Then restart the server."
+                ),
+            },
         )
 
+    state.config = payload.model_dump()
     _precompute(payload, state.trajectory_db)
 
     total_ev  = sum(len(f["events"]) for f in state.frames.values())
@@ -262,6 +285,7 @@ async def set_config(payload: ConfigPayload):
         "total_pcu":    round(total_pcu, 1),
         "duration_s":   round(state.duration_s, 2),
         "lines":        list(payload.lines.keys()),
+        "data_source":  state.db_meta.get("source", "traffic_base.json"),
     }
 
 
@@ -272,6 +296,8 @@ async def get_status():
         "frames_ready": len(state.frames),
         "duration_s":   round(state.duration_s, 2),
         "traj_frames":  len(state.trajectory_db),
+        "data_source":  state.db_meta.get("source", "not loaded"),
+        "db_ready":     len(state.trajectory_db) > 0,
     }
 
 
@@ -287,8 +313,8 @@ async def get_summary():
             cls = ev["class"]
             lid = ev["line"]
             pcu = PCU_WEIGHTS.get(cls, 1.0)
-            class_counts[cls]  = class_counts.get(cls, 0) + 1
-            line_totals[lid]   = line_totals.get(lid, 0.0) + pcu
+            class_counts[cls] = class_counts.get(cls, 0) + 1
+            line_totals[lid]  = line_totals.get(lid, 0.0) + pcu
 
     return {
         "ok":           True,
@@ -296,6 +322,7 @@ async def get_summary():
         "timeline":     state.timeline,
         "line_totals":  {k: round(v, 1) for k, v in line_totals.items()},
         "class_counts": class_counts,
+        "data_source":  state.db_meta.get("source", "traffic_base.json"),
     }
 
 
@@ -359,12 +386,12 @@ async def ws_stream(websocket: WebSocket):
                 })
                 continue
 
-            # ── look up nearest pre-computed frame ─────────────────────
+            # ── look up nearest pre-computed real frame ────────────────
             frame    = _nearest_frame(t_req)
             t_actual = frame["t"]
 
             # ── rebuild 30-second PCU sliding window ───────────────────
-            # Scan all frame keys in [t_actual − WINDOW_SEC, t_actual].
+            # Scan frame keys in [t_actual − WINDOW_SEC, t_actual].
             # Binary search keeps this O(window_frames) ≈ O(700 frames).
             t_win_start = t_actual - WINDOW_SEC
             pcu_by_line: dict[str, float] = {}
@@ -396,7 +423,7 @@ async def ws_stream(websocket: WebSocket):
                 pcu_history = pcu_history,
             )
 
-            # ── send response ──────────────────────────────────────────
+            # ── send response with real vehicle positions + counts ─────
             await websocket.send_json({
                 "type":           "frame",
                 "t":              t_actual,

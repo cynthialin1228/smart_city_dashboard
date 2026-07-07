@@ -25,7 +25,7 @@ from pathlib import Path
 # Add backend to path
 sys.path.insert(0, str(Path(__file__).parent / "backend"))
 
-from app.spatial_engine import SpatialEngine, PCU_WEIGHTS, segment_intersect, cross_direction
+from app.spatial_engine import SpatialEngine, PCU_WEIGHTS, segment_intersect, cross_direction, point_in_roi
 from app.traffic_rules import evaluate_rules
 
 
@@ -51,7 +51,7 @@ def test_coordinate_space():
     )
 
     for pt in test_points:
-        in_roi = engine.point_in_roi(pt, roi)
+        in_roi = point_in_roi(pt, roi)
         print(f"  Point {pt}: in_roi={in_roi} ✓")
 
     print("✅ Coordinate space test passed\n")
