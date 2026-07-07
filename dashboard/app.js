@@ -64,6 +64,20 @@ const I18N = {
     // duration unit
     min:             'min',
     vehicles:        'vehicles',
+    // scene tab
+    tab_analytics:   '📊 Analytics',
+    tab_scene:       '🎬 Scene View',
+    ctrl_view:       'View',
+    ctrl_motion:     'Motion',
+    ctrl_overlay:    'Overlay',
+    ctrl_time:       'Time',
+    view_topdown:    'Top-Down',
+    view_persp:      'Perspective',
+    view_iso:        'Isometric',
+    motion_static:   'Static',
+    motion_anim:     'Animated',
+    overlay_flow:    'Flow',
+    overlay_heat:    'Heatmap',
   },
   zh: {
     title:           '智慧城市交通分析系統',
@@ -114,6 +128,20 @@ const I18N = {
     donut_center:    '總計',
     min:             '分鐘',
     vehicles:        '輛',
+    // scene tab
+    tab_analytics:   '📊 分析儀表板',
+    tab_scene:       '🎬 場景視圖',
+    ctrl_view:       '視角',
+    ctrl_motion:     '動態',
+    ctrl_overlay:    '疊加層',
+    ctrl_time:       '時間',
+    view_topdown:    '俯視',
+    view_persp:      '透視',
+    view_iso:        '等角',
+    motion_static:   '靜態',
+    motion_anim:     '動畫',
+    overlay_flow:    '車流',
+    overlay_heat:    '熱力圖',
   },
 };
 
@@ -203,7 +231,13 @@ function applyI18n() {
 
 window.toggleLang = function () {
   currentLang = currentLang === 'en' ? 'zh' : 'en';
-  if (trafficData) renderAll();
+  if (trafficData) {
+    renderAll();
+    // also refresh scene if it's visible
+    if (document.getElementById('panel-scene').style.display !== 'none') {
+      setTimeout(() => window.initScene && window.initScene(trafficData, currentLang), 60);
+    }
+  }
 };
 
 // ── KPI cards ──────────────────────────────────────────────────────────────────
@@ -491,3 +525,15 @@ function renderTable() {
 
 // ── Boot ───────────────────────────────────────────────────────────────────────
 loadData();
+
+// ── Tab switching ──────────────────────────────────────────────────────────────
+window.switchTab = function(tab) {
+  document.getElementById('panel-analytics').style.display = tab === 'analytics' ? '' : 'none';
+  document.getElementById('panel-scene').style.display     = tab === 'scene'     ? '' : 'none';
+  document.getElementById('tab-analytics').classList.toggle('active', tab === 'analytics');
+  document.getElementById('tab-scene').classList.toggle('active',     tab === 'scene');
+  if (tab === 'scene' && trafficData) {
+    // slight delay so the canvas has layout dimensions before we draw
+    setTimeout(() => window.initScene && window.initScene(trafficData, currentLang), 60);
+  }
+};

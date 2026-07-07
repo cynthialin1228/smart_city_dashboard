@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css" />
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
 </head>
 <body>
 
@@ -26,8 +27,14 @@
   </div>
 </header>
 
+<!-- ═══════════════════════════════════════ TAB NAV ══════════════════════ -->
+<nav class="tab-nav">
+  <button class="tab-btn active" id="tab-analytics" onclick="switchTab('analytics')" data-i18n="tab_analytics">📊 Analytics</button>
+  <button class="tab-btn"        id="tab-scene"      onclick="switchTab('scene')"     data-i18n="tab_scene">🎬 Scene View</button>
+</nav>
+
 <!-- ═══════════════════════════════════════ MAIN ════════════════════════════ -->
-<main class="main">
+<main class="main" id="panel-analytics">
 
   <!-- ── KPI Row ─────────────────────────────────────────────────────────── -->
   <section class="kpi-row">
@@ -136,10 +143,63 @@
 
 </main>
 
+<!-- ═══════════════════════════════════════ SCENE PANEL ═════════════════════ -->
+<main class="main scene-panel" id="panel-scene" style="display:none">
+
+  <!-- ── Scene Controls Bar ──────────────────────────────────────────────── -->
+  <div class="scene-controls">
+
+    <!-- View mode -->
+    <div class="ctrl-group">
+      <span class="ctrl-label" data-i18n="ctrl_view">View</span>
+      <div class="ctrl-btns" id="viewBtns">
+        <button class="ctrl-btn active" data-view="topdown"      onclick="setView('topdown')"      data-i18n="view_topdown">Top-Down</button>
+        <button class="ctrl-btn"        data-view="perspective"  onclick="setView('perspective')"  data-i18n="view_persp">Perspective</button>
+        <button class="ctrl-btn"        data-view="isometric"    onclick="setView('isometric')"    data-i18n="view_iso">Isometric</button>
+      </div>
+    </div>
+
+    <!-- Motion mode removed (static only) -->
+
+    <!-- Overlay mode -->
+    <div class="ctrl-group">
+      <span class="ctrl-label" data-i18n="ctrl_overlay">Overlay</span>
+      <div class="ctrl-btns" id="overlayBtns">
+        <button class="ctrl-btn active" data-overlay="flow"     onclick="setOverlay('flow')"     data-i18n="overlay_flow">Flow</button>
+        <button class="ctrl-btn"        data-overlay="heatmap"  onclick="setOverlay('heatmap')"  data-i18n="overlay_heat">Heatmap</button>
+      </div>
+    </div>
+
+    <!-- Time scrubber -->
+    <div class="ctrl-group ctrl-group-wide">
+      <span class="ctrl-label" data-i18n="ctrl_time">Time</span>
+      <input type="range" id="timeScrubber" min="0" max="19" value="7" oninput="onScrub(this.value)" />
+      <span class="ctrl-time-label" id="scrubTimeLabel">07:37</span>
+    </div>
+
+  </div>
+
+  <!-- ── Canvas Viewport ─────────────────────────────────────────────────── -->
+  <div class="scene-viewport">
+    <canvas id="sceneCanvas"></canvas>
+
+    <!-- Heads-up overlay labels (Tesla-style) -->
+    <div class="hud" id="sceneHud"></div>
+
+    <!-- Legend overlay -->
+    <div class="scene-legend" id="sceneLegend"></div>
+  </div>
+
+  <!-- ── Scene Stats Strip ───────────────────────────────────────────────── -->
+  <div class="scene-stats" id="sceneStats"></div>
+
+</main>
+
 <footer class="footer">
   <span data-i18n="footer">Smart City Traffic Analytics · Foxconn Internship Project · 2026</span>
 </footer>
 
 <script src="app.js"></script>
+<script src="scene.js"></script>
 </body>
 </html>
