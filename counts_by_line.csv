@@ -1,0 +1,5 @@
+line,direction,car,motorcycle,truck
+B_left_exit,-1,0,2,0
+B_left_exit,1,5,21,1
+C_near_approach,-1,39,0,8
+C_near_approach,1,6,0,0
