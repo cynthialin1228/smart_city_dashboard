@@ -178,8 +178,7 @@ export default function App() {
         <div className="text-4xl animate-pulse">◈</div>
         <p className="text-lg tracking-widest">INITIALISING AI ENGINE</p>
         <p className="text-xs text-slate-500">
-          Computing spatial intersections over {' '}
-          <span className="text-cyan-500">1501 trajectory frames</span>…
+          Computing spatial intersections across the 20-minute trajectory database…
         </p>
         <div className="w-64 h-1 bg-slate-800 rounded overflow-hidden">
           <div className="h-full bg-cyan-400 rounded"

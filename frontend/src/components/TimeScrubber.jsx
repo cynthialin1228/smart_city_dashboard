@@ -111,8 +111,11 @@ export default function TimeScrubber({ videoRef, duration = 0, currentTime = 0, 
 
   // ── timeline sparkline from summary ──────────────────────────────────
   // Build a simple array of total_rate per second for a background sparkline
+  // Use reduce instead of spread to avoid stack overflow with 1200+ points
   const sparkData = summary?.timeline?.map(pt => pt.total_rate ?? 0) ?? [];
-  const sparkMax  = Math.max(1, ...sparkData);
+  const sparkMax  = sparkData.length > 0
+    ? Math.max(1, sparkData.reduce((a, b) => Math.max(a, b), 0))
+    : 1;
 
   return (
     <div className="shrink-0 bg-[#060c1a] border-t border-cyan-900/30 px-4 py-2
