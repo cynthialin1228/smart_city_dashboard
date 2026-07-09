@@ -1,85 +1,85 @@
 import pandas as pd
 import json
 import os
+import ast
 
-def run_advanced_cluster_pipeline():
-    print("🚀 [智慧群集對齊引擎] 開始解析真實車流幾何軌跡與優化 Cluster...")
+def run_fsd_style_preprocessing():
+    print("🚀 [ FSD 建模引擎] 開始封裝 20 分鐘軌跡與 3D 建模背景坐標...")
     
     base_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
     data_folder = os.path.join(base_dir, "backend/data/")
     
-    tracks_path = os.path.join(data_folder, "tracks_od.csv")
+    trajectories_path = os.path.join(data_folder, "trajectories.csv")
     events_path = os.path.join(data_folder, "events.csv")
     counts_path = os.path.join(data_folder, "counts_by_bucket.csv")
-    
-    df_tracks = pd.read_csv(tracks_path).fillna("")
+
+    df_trajectories = pd.read_csv(trajectories_path).fillna("")
     df_events = pd.read_csv(events_path).fillna("")
     df_counts = pd.read_csv(counts_path).fillna(0)
     
-    # 1. PCU 全量趨勢
     trends_list = df_counts.to_dict(orient="records")
-    
-    # 2. 建立完備的秒級活動索引與真實幾何空間座標投射
-    max_sec = int(df_tracks['last_t'].max()) + 1
+    max_sec = int(df_trajectories['last_t'].max()) + 2
     tracks_indexed = {str(s): [] for s in range(max_sec)}
-    
-    # 用於統計優化後的整體流向矩陣
-    optimized_od_matrix = {}
+    optimized_cluster_matrix = {}
 
-    for _, row in df_tracks.iterrows():
+    # 💡 核心創新：在 1280x720 影像空間中，定義路口周圍建築物的幾何多邊形頂點 (對齊監視器畫面)
+    building_polygons = [
+        # 建築物 1 (左側街景大樓立體面)
+        {"id": "b_left_front", "pts": [[0, 0], [450, 0], [350, 220], [0, 280]], "type": "wall_light"},
+        {"id": "b_left_side", "pts": [[350, 220], [450, 0], [520, 180], [380, 240]], "type": "wall_dark"},
+        # 建築物 2 (右側橫向商業大樓)
+        {"id": "b_right_wall", "pts": [[900, 0], [1280, 0], [1280, 250], [980, 190]], "type": "wall_light"},
+        {"id": "b_right_roof", "pts": [[820, 120], [900, 0], [980, 190], [880, 160]], "type": "wall_dark"},
+        # 中央路口交通安全島 / 非道路綠帶
+        {"id": "island_center", "pts": [[580, 320], [700, 310], [680, 340], [560, 350]], "type": "island"}
+    ]
+
+    for _, row in df_trajectories.iterrows():
         t_start = max(0, int(row['first_t']))
         t_end = min(max_sec - 1, int(row['last_t']))
+        total_duration = max((t_end - t_start), 1)
         
-        # 提取真實座標
-        fx, fy = float(row['first_x']), float(row['first_y'])
-        lx, ly = float(row['last_x']), float(row['last_y'])
-        
-        # 讀取真實的機器學習分群
+        pts = ast.literal_eval(str(row['points_json'])) if row['points_json'] else []
+        if not pts:
+            pts = [[float(row['first_x']), float(row['first_y'])], [float(row['last_x']), float(row['last_y'])]]
+
         raw_cluster = int(row['trajectory_cluster']) if row['trajectory_cluster'] != "" else -1
-        
-        # --- 核心邏輯：依照您的規範對 Cluster 進行就地重組與細分 ---
-        cluster_label = "其他雜碎車流"
+        cluster_label = "其他邊緣車流"
         
         if raw_cluster in [1, 2, 4, 5, 8]:
-            # 分得好的群組，直接轉化為直觀語意
-            cluster_label = f"主要流向群群 (Cluster {raw_cluster})"
+            names = {1: "幹線左轉 ⬅️", 2: "對向左轉 ↙️", 4: "主幹道直行 ⬆️", 5: "跨區穿梭 🔀", 8: "右方匯入 ➡️"}
+            cluster_label = names.get(raw_cluster, f"分群群體 {raw_cluster}")
         elif raw_cluster == 0:
-            # 流量極大群組 0：依據幾何起迄斜率與位移，動態解構分群為 3 個車流方向
-            dx = lx - fx
-            dy = ly - fy
-            if dx < -100:
-                cluster_label = "流向 0-A (主幹道左轉向)"
-            elif dy > 50:
-                cluster_label = "流向 0-B (主幹道右轉向)"
-            else:
-                cluster_label = "流向 0-C (路口直行向)"
-        elif raw_cluster in [3, 6, 7, 9, 10, 11]:
-            # 分太少或需要合併的類別，邏輯聚合為邊緣次要流向
-            cluster_label = "次要分流/邊緣迴轉向 (合併群組)"
-        else:
-            cluster_label = "未分類噪點車流"
+            fx, fy = pts[0][0], pts[0][1]
+            lx, ly = pts[-1][0], pts[-1][1]
+            if (lx - fx) < -120: cluster_label = "流向 0-A (幹線分流左轉)"
+            elif (ly - fy) > 50: cluster_label = "流向 0-B (主幹道右轉)"
+            else: cluster_label = "流向 0-C (核心路口直行)"
+        elif raw_cluster in [3, 6, 7, 9, 10, 11, -1]:
+            cluster_label = "次要轉向 / 噪點車流 (邏輯合併)"
 
-        # 累加至整體流向排行數據中
-        optimized_od_matrix[cluster_label] = optimized_od_matrix.get(cluster_label, 0) + 1
+        optimized_cluster_matrix[cluster_label] = optimized_cluster_matrix.get(cluster_label, 0) + 1
         
-        # 注入秒級活動時間軸，計算當前秒數的平滑內插坐標 (1:1 貼合車輛)
-        total_t = max((t_end - t_start), 1)
+        # 精確適配寬高 (對齊 YOLO 抑制後大小)
+        cls = str(row['class']).lower().strip()
+        box_w, box_h = 36, 36
+        if cls == 'motorcycle': box_w, box_h = 22, 22
+        elif cls in ['truck', 'bus']: box_w, box_h = 70, 38
+
         for s in range(t_start, t_end + 1):
-            ratio = (s - t_start) / total_t
-            # 實打實利用 CSV 內的幾何起迄點計算即時點位
-            current_x = fx + (lx - fx) * ratio
-            current_y = fy + (ly - fy) * ratio
+            progress = (s - t_start) / total_duration
+            pt_idx = min(int(progress * len(pts)), len(pts) - 1)
+            current_pixel_pt = pts[pt_idx] if len(pts) > 0 else [640, 360]
             
             tracks_indexed[str(s)].append({
                 "id": str(row['track_id']),
-                "class": str(row['class']).lower().strip(),
-                "x": current_x,
-                "y": current_y,
-                "fx": fx, "fy": fy, # 帶上起點用於畫歷史尾跡
-                "cluster_label": cluster_label
+                "class": cls,
+                "x": float(current_pixel_pt[0]),
+                "y": float(current_pixel_pt[1]),
+                "w": box_w, "h": box_h,
+                "full_path": pts
             })
             
-    # 3. 處理秒級事件日誌
     events_indexed = {str(s): [] for s in range(max_sec)}
     for _, row in df_events.iterrows():
         sec_key = str(int(row['t_seconds']))
@@ -91,13 +91,13 @@ def run_advanced_cluster_pipeline():
                 "class": str(row['class']).lower().strip()
             })
             
-    # 打包 Payloads
     payload = {
         "status": "success",
         "trends": trends_list,
+        "buildings": building_polygons, # 💡 注入幾何建模圖層
         "live_tracks": tracks_indexed,
         "live_events": events_indexed,
-        "od_matrix": optimized_od_matrix # 吐出全新改進的優化方向排行
+        "cluster_matrix": optimized_cluster_matrix
     }
     
     static_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "static")
@@ -105,7 +105,7 @@ def run_advanced_cluster_pipeline():
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False)
         
-    print(f"✅ [幾何分群引擎升級完成] 真實資料已對齊匯出至：{output_path}")
+    print(f"✅ [ FSD 風格封裝完成] 快取已導出至：{output_path}")
 
 if __name__ == "__main__":
-    run_advanced_cluster_pipeline()
+    run_fsd_style_preprocessing();
